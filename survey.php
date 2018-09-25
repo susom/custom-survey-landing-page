@@ -17,18 +17,18 @@ $input_placeholder = $module->getProjectSetting('placeholder');
 
 ?>
 <div class="center-container">
-    <div class="item panel panel-primary">
+    <div class="item card card.bg-primary.text-white">
         <?php if (!empty($title)) { ?>
-            <div class="panel-heading">
+            <div class="card-header">
                 <?php echo $title ?>
             </div>
         <?php }
         if (!empty($desc)) { ?>
-        <div class="panel-body">
+        <div class="card-body">
             <?php echo $desc; ?>
         </div>
         <?php } ?>
-        <div class="panel-footer">
+        <div class="card-footer">
             <form method="POST" action="<?php echo APP_PATH_SURVEY_FULL ?>">
 
                 <div class="input-group">
@@ -66,7 +66,6 @@ $input_placeholder = $module->getProjectSetting('placeholder');
     #pagecontainer{
         background:none;
     }
-
     .panel-body {
         background: #fefefe;
     }
