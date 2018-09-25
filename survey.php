@@ -31,16 +31,17 @@ $input_placeholder = $module->getProjectSetting('placeholder');
         <div class="card-footer">
             <form method="POST" action="<?php echo APP_PATH_SURVEY_FULL ?>">
 
-                <div class="input-group">
+                <div class="input-group input-group-sm mb-3">
                     <?php if (!empty($input_label)) { ?>
-                        <span class="input-group-addon" id="id_label"><?php echo $input_label ?></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="id_label"><?php echo  $input_label ?></span>
+                        </div>
                     <?php } ?>
-                    <input type="text" class="form-control" placeholder="<?php echo $input_placeholder ?>" name="code" value="" aria-describedby="id_label">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">Go</button>
-                    </span>
+                        <input type="text" class="form-control"  placeholder="<?php echo $input_placeholder ?>" name="code" value="" aria-describedby="id_label">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Go</button>
+                        </div>
                 </div>
-
             </form>
         </div>
     </div>
