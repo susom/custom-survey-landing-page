@@ -25,7 +25,8 @@
   ],
 
   "permissions": [
-    "redcap_every_page_top"
+    "redcap_every_page_top",
+    "redcap_module_save_configuration"
   ],
 
   "no-auth-pages": [
@@ -50,7 +51,7 @@
   "project-settings": [
     {
       "key": "instructions",
-      "name": "<b>INSTRUCTIONS FOR USE</b><br>Use the following urls in place of the default redcap survey url for this page to appear.<div class='urls'></div>",
+      "name": "<b>INSTRUCTIONS FOR USE</b><br>Adjust your settings here and then view the get 'Survey Access Code' page under Survey Distribution Tools for the urls to use</div>",
       "type": "descriptive"
     },
     {
@@ -90,6 +91,19 @@
       "name": "<b>Align Background Image to Top (optional)</b><br>Keep the image aligned vertically to the top when zoomed or on small screens",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "use-api-url",
+      "name": "<b>Use API Url</b><br>If your server uses shibboleth or does not permit outside access to the base url, check this box to force an api-based landing page.  If you have previously made a short-url, you need to also clear the short url by checking the box below",
+      "required": false,
+      "type": "checkbox"
+    },
+    {
+      "key": "clear-short-url",
+      "name": "<b>Reset Short Url</b><br>If you chance the 'use-api-url' option above, you may need to update your short-url which is normally cached once created and will not normally be updated when you toggle the Use API Url option above.",
+      "required": false,
+      "type": "checkbox"
     }
+
   ]
 }

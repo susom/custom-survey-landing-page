@@ -32,9 +32,12 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
      * @param null $project_id
      * @return bool
      */
-    function xredcap_module_configure_button_display($project_id = null) {
-        $publicUrl = empty($this->getPublicUrl()) ? "''" : json_encode($this->getPublicUrl());
-        $shortUrl = empty($this->getShortUrl()) ? "''" : json_encode($this->getShortUrl());
+    /*
+    function redcap_module_configure_button_display($project_id = null) {
+        if (!empty($project_id)) {
+            $publicUrl = empty($this->getPublicUrl()) ? "''" : json_encode($this->getPublicUrl());
+            $shortUrl = empty($this->getShortUrl()) ? "''" : json_encode($this->getShortUrl());
+        }
 
 	?>
             <script type="text/javascript">
@@ -48,6 +51,14 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         <?php
         return true;
     }
+*/
+
+    public function redcap_module_save_configuration($project_id = null) {
+        if (empty($project_id)) return;
+
+        // Check to see if they have asked us to regenerated the short URL
+        $this->checkClearShortUrl();
+    }
 
 
     /**
@@ -56,8 +67,9 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
      */
     private function getPublicUrl() {
         global $auth_meth;
+        $useApiUrl = $this->getProjectSetting('use-api-url');
         $is_above_843 = REDCap::versionCompare(REDCAP_VERSION, '8.4.3') >= 0;
-        $url = ($auth_meth === "shibboleth" && $is_above_843)  ? $this->getUrl("survey.php", true, true) : $this->getUrl("survey.php");
+        $url = ( ($auth_meth === "shibboleth" && $is_above_843 ) || $useApiUrl)  ? $this->getUrl("survey.php", true, true) : $this->getUrl("survey.php");
         return $url;
     }
 
@@ -72,7 +84,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         if (empty($shortUrl)) {
             // Try to make one
             $publicUrl = $this->getPublicUrl();
-            $publicUrl = str_replace("localhost","redcap.stanford.edu",$publicUrl);
+            // $publicUrl = str_replace("localhost","redcap.stanford.edu",$publicUrl);
             $result = \Survey::getCustomShortUrl($publicUrl, false);
 
             if (self::startsWith($result, "Error:")) {
@@ -85,10 +97,20 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         return $shortUrl;
     }
 
+
+    /** See if we need to reset the short url for this project */
+    private function checkClearShortUrl() {
+        if ($this->getProjectSetting('clear-short-url')) {
+            $this->setProjectSetting('short-url',"");
+            $this->getShortUrl();
+            $this->setProjectSetting('clear-short-url',0);
+        }
+    }
+
+
     function redcap_every_page_top($project_id = null) {
 
         if (PAGE === "Surveys/invite_participants.php" || PAGE === "DataEntry/index.php") {
-
             $shortUrl = $this->getShortUrl();
             ?>
                 <script>
@@ -143,8 +165,8 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                     textarea.smallUrl {
                         font-size: smaller !important;
                         width: 95% !important;
-                        height: 26px !important;
-                        overflow-x:scroll;
+                        height: 40px !important;
+                        overflow-x: auto;
                         white-space: nowrap !important;
                     }
                 </style>
