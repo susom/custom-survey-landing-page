@@ -182,7 +182,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                                         '<div style="font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
                                             '<input id="' + id + '" value="' + url +
                                             '" onclick="this.select();" readonly="readonly" class="staticInput" ' +
-                                            'style="float:left;width:90%;max-width:630px;margin-bottom:5px;margin-right:5px;">' +
+                                            'style="width:90%;max-width:630px;margin-bottom:5px;margin-right:5px;">' +
                                         '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
                                     '</div>';
                                 return $($d);
