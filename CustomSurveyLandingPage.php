@@ -69,7 +69,6 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         global $auth_meth;
         $useApiUrl = $this->getProjectSetting('use-api-url');
         $is_above_843 = REDCap::versionCompare(REDCAP_VERSION, '8.4.3') >= 0;
-        \Plugin::log($useApiUrl, $is_above_843, $auth_meth, ($auth_meth === "shibboleth" && $is_above_843));
         $url = ( ($auth_meth === "shibboleth" && $is_above_843 ) || $useApiUrl)  ? $this->getUrl("survey.php", true, true) : $this->getUrl("survey.php");
         return $url;
     }
@@ -132,17 +131,22 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                                 var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
                                 var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
 
-                                // Get the default url:
-                                var ta = $('textarea.staticInput').addClass('smallUrl');
+                                // Get insert point:
+                                var ta = $('#shorturl_div');
 
-                                // Add the custom urls:
-                                var newta = ta.clone().text('<?php echo $this->getPublicUrl() ?>');
-                                ta.after(newta).after($('<p class="">-- OR, for your Custom Landing Page, use this long url:</p>'));
-
-                                if (shortUrl) {
-                                    newta = ta.clone().text(shortUrl);
-                                    ta.after(newta).after($('<p class="">-- OR, for your Custom Landing Page, you may use this shortened url:</p>'));
+                                function getUrlDiv(url, id) {
+                                    $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
+                                            '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                            'OR, for our Custom Landing Page EM, use this url:</div>' +
+                                            '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
+                                            '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
+                                            '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
+                                        '</div>';
+                                    return $($d);
                                 }
+
+                                ta.before(getUrlDiv(publicUrl,'custPubUrl'));
+                                ta.before(getUrlDiv(shortUrl, 'custShortUrl'));
                             });
 
                             return $result;
