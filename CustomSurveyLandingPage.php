@@ -134,8 +134,6 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
 
                             function getUrlDiv(url, id, name) {
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
-                                        '<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        'OR</div>' +
                                         '<div style="font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
                                         '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
                                     '</div>';
@@ -144,8 +142,9 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
 
                             var ta = $('textarea.staticInput');
                             ta.after(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
+                            ta.after('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR:</div>');
                             ta.after(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
-                            ta.after('<div>OR, use your Custom Survey Landing Page EM URLs:</div>');
+                            ta.after('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR, use your Custom Survey Landing Page EM URLs:</div>');
                         });
                     })();
                 </script>
@@ -180,8 +179,6 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
 
                             function getUrlDiv(url, id) {
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
-                                        '<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        'OR</div>' +
                                         '<div style="font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
                                             '<input id="' + id + '" value="' + url +
                                             '" onclick="this.select();" readonly="readonly" class="staticInput" ' +
@@ -192,6 +189,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             }
 
                             ta.before(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
+                            ta.before('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR</div>');
                             ta.before(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
                             ta.before('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
                                         'OR, use your Custom Survey Landing Page EM URLs:</div>"');
