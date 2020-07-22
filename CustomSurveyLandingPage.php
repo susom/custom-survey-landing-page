@@ -127,7 +127,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             $result = proxied.apply(this, arguments);
 
                             // Add some custom JS to update the Access Code page with the alternate URLs
-                            waitForUrl('textarea.staticInput', function() {
+                            waitForUrl('input.staticInput', function() {
                                 // work the magic
                                 var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
                                 var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;

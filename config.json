@@ -37,11 +37,6 @@
     "control-center": [
     ],
     "project": [
-      {
-        "name": "Custom Landing Page",
-        "icon": "gear",
-        "url": "survey.php?NOAUTH"
-      }
     ]
   },
 
