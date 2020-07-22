@@ -110,58 +110,9 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
 
     function redcap_every_page_top($project_id = null) {
 
-        if (PAGE === "Surveys/invite_participants.php" || PAGE === "DataEntry/index.php") {
-            $shortUrl = $this->getShortUrl();
+        if (PAGE === "DataEntry/index.php") {
             ?>
                 <script>
-                    // Override the getAccessCode with an anonymous function
-                    (function () {
-
-                        console.log('starting');
-                        // Cache the original function under another name
-                        var proxied = getAccessCode;
-
-                        // Redefine the original
-                        getAccessCode = function () {
-
-                            // Do the original proxied function
-                            $result = proxied.apply(this, arguments);
-
-                            console.log('alredy ran', $result);
-
-                            // Add some custom JS to update the Access Code page with the alternate URLs
-                            waitForUrl('input.staticInput', function() {
-
-                                console.log('waitForUrl');
-
-                                // work the magic
-                                var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
-                                var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
-
-                                // Get insert point:
-                                var ta = $('#shorturl_div');
-
-                                function getUrlDiv(url, id) {
-                                    console.log('getUrlDiv', url, id);
-                                    $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
-                                            '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                            'OR, for our Custom Landing Page EM, use this url:</div>' +
-                                            '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
-                                            '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
-                                            '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
-                                        '</div>';
-                                    return $($d);
-                                }
-
-                                ta.before(getUrlDiv(publicUrl,'custPubUrl'));
-                                ta.before(getUrlDiv(shortUrl, 'custShortUrl'));
-                            });
-
-                            return $result;
-                        }
-                    })();
-
-
                     // Wait for the url to appear on the Survey Access Code page
                     waitForUrl = function(selector, callback) {
                         if (jQuery(selector).text().length) {
@@ -173,16 +124,83 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                         }
                     };
 
+                    // Override the getAccessCode with an anonymous function
+                    (function () {
+                        waitForUrl('textarea.staticInput', function() {
+                            console.log('waitForUrl');
+
+                            // work the magic
+                            var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
+                            var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
+
+                            function getUrlDiv(url, id) {
+                                console.log('getUrlDiv', url, id);
+                                $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
+                                        '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                        'OR, for our Custom Landing Page EM, use this url:</div>' +
+                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
+                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
+                                        '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
+                                    '</div>';
+                                return $($d);
+                            }
+
+                            var ta = $('textarea.staticInput');
+                            ta.after(getUrlDiv(publicUrl,'custPubUrl'));
+                            ta.after(getUrlDiv(shortUrl, 'custShortUrl'));
+                        });
+                    })();
                 </script>
-                <style>
-                    textarea.smallUrl {
-                        font-size: smaller !important;
-                        width: 95% !important;
-                        height: 40px !important;
-                        overflow-x: auto;
-                        white-space: nowrap !important;
-                    }
-                </style>
+            <?php
+        }
+
+        if (PAGE === "Surveys/invite_participants.php") {
+            ?>
+                <script>
+                    // Wait for the url to appear on the Survey Access Code page
+                    waitForElement = function(selector, callback) {
+                        if (jQuery(selector).length) {
+                            callback();
+                        } else {
+                            setTimeout(function() {
+                                waitForElement(selector, callback);
+                            }, 100);
+                        }
+                    };
+
+                    // Override the getAccessCode with an anonymous function
+                    (function () {
+
+                        console.log('starting');
+
+                        // Add some custom JS to update the Access Code page with the alternate URLs
+                        waitForElement('#longurl', function() {
+                            console.log('waitForElement');
+
+                            // work the magic
+                            var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
+                            var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
+
+                            // Get insert point:
+                            var ta = $('#shorturl_div');
+
+                            function getUrlDiv(url, id) {
+                                console.log('getUrlDiv', url, id);
+                                $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
+                                        '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                        'OR, for our Custom Landing Page EM, use this url:</div>' +
+                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
+                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
+                                        '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
+                                    '</div>';
+                                return $($d);
+                            }
+
+                            ta.before(getUrlDiv(publicUrl,'custPubUrl'));
+                            ta.before(getUrlDiv(shortUrl, 'custShortUrl'));
+                        });
+                    })();
+                </script>
             <?php
         }
     }
