@@ -69,6 +69,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         global $auth_meth;
         $useApiUrl = $this->getProjectSetting('use-api-url');
         $is_above_843 = REDCap::versionCompare(REDCAP_VERSION, '8.4.3') >= 0;
+        \Plugin::log($useApiUrl, $is_above_843, $auth_meth, ($auth_meth === "shibboleth" && $is_above_843));
         $url = ( ($auth_meth === "shibboleth" && $is_above_843 ) || $useApiUrl)  ? $this->getUrl("survey.php", true, true) : $this->getUrl("survey.php");
         return $url;
     }
