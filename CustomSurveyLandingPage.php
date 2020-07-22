@@ -116,6 +116,8 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                 <script>
                     // Override the getAccessCode with an anonymous function
                     (function () {
+
+                        console.log('starting');
                         // Cache the original function under another name
                         var proxied = getAccessCode;
 
@@ -125,8 +127,13 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             // Do the original proxied function
                             $result = proxied.apply(this, arguments);
 
+                            console.log('alredy ran', $result);
+
                             // Add some custom JS to update the Access Code page with the alternate URLs
                             waitForUrl('input.staticInput', function() {
+
+                                console.log('waitForUrl');
+
                                 // work the magic
                                 var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
                                 var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
@@ -135,6 +142,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                                 var ta = $('#shorturl_div');
 
                                 function getUrlDiv(url, id) {
+                                    console.log('getUrlDiv', url, id);
                                     $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
                                             '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
                                             'OR, for our Custom Landing Page EM, use this url:</div>' +
