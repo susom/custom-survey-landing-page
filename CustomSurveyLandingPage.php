@@ -135,7 +135,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             function getUrlDiv(url, id, name) {
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
                                         '<div style="font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
-                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
+                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:90%;max-width:600px;margin-bottom:5px;margin-right:5px;">' +
                                     '</div>';
                                 return $($d);
                             }
@@ -188,11 +188,13 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                                 return $($d);
                             }
 
+                            ta.before('<div style="font-weight:bold;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                        '-- OR -- Use your Custom Survey Landing Page EM URLs:</div>"');
                             ta.before(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
-                            ta.before('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR</div>');
+                            ta.before('<div style="font-weight:bold;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                '-- OR --</div>');
                             ta.before(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
-                            ta.before('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        'OR, use your Custom Survey Landing Page EM URLs:</div>"');
+
                         });
                     })();
                 </script>
