@@ -133,21 +133,20 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             var shortUrl = <?php echo json_encode($this->getShortUrl()) ?>;
                             var publicUrl = <?php echo json_encode($this->getPublicUrl()) ?>;
 
-                            function getUrlDiv(url, id) {
+                            function getUrlDiv(url, id, name) {
                                 console.log('getUrlDiv', url, id);
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
-                                        '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        'OR, for our Custom Landing Page EM, use this url:</div>' +
-                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
+                                        '<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                        'OR, use your Custom Survey Landing Page EM URLs:</div>' +
+                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
                                         '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
-                                        '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
                                     '</div>';
                                 return $($d);
                             }
 
                             var ta = $('textarea.staticInput');
-                            ta.after(getUrlDiv(publicUrl,'custPubUrl'));
-                            ta.after(getUrlDiv(shortUrl, 'custShortUrl'));
+                            ta.after(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
+                            ta.after(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
                         });
                     })();
                 </script>
@@ -185,19 +184,21 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             var ta = $('#shorturl_div');
 
                             function getUrlDiv(url, id) {
-                                console.log('getUrlDiv', url, id);
+                                console.log('getUrlDiv', url, id, name);
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
-                                        '<div style="float:left;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        'OR, for our Custom Landing Page EM, use this url:</div>' +
-                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">Custom EM Survey URL:</div>' +
-                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
+                                        '<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
+                                        'OR, use your Custom Survey Landing Page EM URLs:</div>' +
+                                        '<div style="float:left;font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
+                                            '<input id="' + id + '" value="' + url +
+                                            '" onclick="this.select();" readonly="readonly" class="staticInput" ' +
+                                            'style="float:left;width:80%;max-width:230px;margin-bottom:5px;margin-right:5px;">' +
                                         '<button class="btn btn-defaultrc btn-xs btn-clipboard" title="Copy to clipboard" data-clipboard-target="#' + id + '" style="padding:3px 8px 3px 6px;"><i class="fas fa-paste"></i></button>' +
                                     '</div>';
                                 return $($d);
                             }
 
-                            ta.before(getUrlDiv(publicUrl,'custPubUrl'));
-                            ta.before(getUrlDiv(shortUrl, 'custShortUrl'));
+                            ta.before(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
+                            ta.before(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
                         });
                     })();
                 </script>
