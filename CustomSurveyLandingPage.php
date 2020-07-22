@@ -135,7 +135,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             function getUrlDiv(url, id, name) {
                                 $d = '<div id="' + id + '" style="font-size:12px;padding:10px 0 10px;">' +
                                         '<div style="font-weight:bold;font-size:12px;line-height:1.8;margin-left:5px;">' + name + '</div>' +
-                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="float:left;width:90%;max-width:600px;margin-bottom:5px;margin-right:5px;">' +
+                                        '<input id="' + id + '" value="' + url + '" onclick="this.select();" readonly="readonly" class="staticInput" style="width:90%;max-width:600px;margin-bottom:5px;margin-right:5px;">' +
                                     '</div>';
                                 return $($d);
                             }
@@ -144,7 +144,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             ta.after(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
                             ta.after('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR:</div>');
                             ta.after(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
-                            ta.after('<div style="padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">OR, use your Custom Survey Landing Page EM URLs:</div>');
+                            ta.after('<div style="padding:15px 0px 0px 10px;color:#444;font-size:12px;line-height:1.8;">OR, use your Custom Survey Landing Page EM URLs:</div>');
                         });
                     })();
                 </script>
@@ -189,12 +189,11 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             }
 
                             ta.before('<div style="font-weight:bold;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
-                                        '-- OR -- Use your Custom Survey Landing Page EM URLs:</div>"');
+                                '-- OR -- Use your Custom Survey Landing Page EM URLs:</div>');
                             ta.before(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL'));
                             ta.before('<div style="font-weight:bold;padding:0px 0px 4px 10px;color:#444;font-size:12px;line-height:1.8;">' +
                                 '-- OR --</div>');
                             ta.before(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
-
                         });
                     })();
                 </script>
