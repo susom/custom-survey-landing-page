@@ -88,6 +88,30 @@
       "type": "file"
     },
     {
+      "key": "partner-1",
+      "name": "<b>Partner Logo (1)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "partner-2",
+      "name": "<b>Partner Logo (2)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "partner-3",
+      "name": "<b>Partner Logo (3)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "footer-text",
+      "name": "<b>Footer text</b>",
+      "required": false,
+      "type": "text"
+    },
+    {
       "key": "align-top",
       "name": "<b>Align Background Image to Top (optional)</b><br>Keep the image aligned vertically to the top when zoomed or on small screens",
       "required": false,

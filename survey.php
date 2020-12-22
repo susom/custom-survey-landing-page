@@ -13,7 +13,13 @@ $desc = $module->getProjectSetting('desc');
 $input_label = $module->getProjectSetting('input-label');
 $input_placeholder = $module->getProjectSetting('placeholder');
 
+$img_partner_1 = $module->getAnyImage64("partner-1");
+$img_partner_2 = $module->getAnyImage64("partner-2");
+$img_partner_3 = $module->getAnyImage64("partner-3");
+$footerText = $module->getProjectSetting('footer-text');
+
 $access_code_length = \Survey::ACCESS_CODE_LENGTH;
+
 
 // Show the results
 
@@ -69,6 +75,34 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
                         <form id="redirect_form" method="POST" action="<?php echo APP_PATH_SURVEY_FULL ?>">
                             <input name="code" id="code_redirect" type="hidden">
                         </form>
+                    </div>
+                    <div class="card-footer">              
+                        <div class="row text-center partners d-flex flex-wrap align-items-center">
+
+                            <?php if($img_partner_1): ?>
+                                <div class="col">
+                                    <img id="partner-1" src="<?= $img_partner_1?>">
+                                </div>
+                            <?php endif; ?>
+                            <?php if($img_partner_2): ?>
+                                <div class="col">
+                                    <img id="partner-2" src="<?= $img_partner_2?>">
+                                </div>
+                            <?php endif; ?>
+                            <?php if($img_partner_3): ?>
+                                <div class="col">
+                                    <img id="partner-3" src="<?= $img_partner_3?>">
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                        <div class="row text-center">
+                            <div class="col pt-3">
+                                <?php if(!empty($footerText)): ?>
+                                    <small class="text-black-50"><?= $footerText ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </div>                          
                     </div>
                 </div>
             </div>
@@ -358,6 +392,11 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
     .card-body .form-control:focus {
         outline: 0 !important;
         box-shadow: none;        
+    }
+
+    .card-footer .partners img {
+        max-width: 150px;
+        padding: 5px;
     }
 
     /*  
