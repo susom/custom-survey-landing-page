@@ -11,6 +11,14 @@ This REDCap module creates a new landing page that can be used for manual survey
 ## Features included
 - Customize the title, body, and input settings
 - Set a custom image in the background
+- Set a custom logo image in the header
+- Set custom partner logos in the footer
+- Set custom footer text
+- Allow users to choose between different code alternatives (default, short, numeral)
+
+## Improved User Experience
+- Code input in predefined fields
+- On-page validation (without redirect in case of error/ code mismatch)
 
 ![Example Image](./example.png)
 
