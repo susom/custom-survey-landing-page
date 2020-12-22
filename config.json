@@ -82,6 +82,12 @@
       "type": "file"
     },
     {
+      "key": "logo",
+      "name": "<b>Logo Image</b><br>Shows survey logo in card header",
+      "required": false,
+      "type": "file"
+    },
+    {
       "key": "align-top",
       "name": "<b>Align Background Image to Top (optional)</b><br>Keep the image aligned vertically to the top when zoomed or on small screens",
       "required": false,

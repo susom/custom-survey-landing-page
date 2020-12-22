@@ -20,7 +20,14 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
 ?>
 <div class="page-wrapper">
         <div class="wrapper wrapper-w580">
-            <div class="card card-shadow">            
+            <div class="card card-shadow">
+                <div class="card-header">
+                    <?php if( $module->getAnyImage64("logo") ): ?>
+                        <img id="survey-logo" src="<?= $module->getAnyImage64("logo") ?>">
+                    <?php elseif(!empty($title)): ?>
+                        <h2 class="h2 text-center"><?= $title ?></h2>
+                    <?php endif; ?>
+                </div>
                 <div class="card-body pt-3 pb-5">
                     <div id="main-wrap" class="form-wrap">
                         <div id="alert-error" class="alert alert-danger hidden" role="alert">
@@ -312,6 +319,11 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
 
     .card-shadow {
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+
+    .card-header #survey-logo {
+        max-width:100%;
+        padding:25px;
     }
 
     .card-body #alert-info {
