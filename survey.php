@@ -29,7 +29,7 @@ $query_string = substr($query_string,0,strpos($query_string, '&access'));
 <div class="page-wrapper">
         <div class="wrapper wrapper-w580">
             <div class="card card-shadow">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <?php if( $module->getAnyImage64("logo") ): ?>
                         <img id="survey-logo" src="<?= $module->getAnyImage64("logo") ?>">
                     <?php elseif(!empty($title)): ?>
@@ -305,7 +305,6 @@ $query_string = substr($query_string,0,strpos($query_string, '&access'));
                     console.log(response);
                     setTimeout(() => {
                         // Dirty solution since there is no API-Endpoint to check if code is valid
-                        //var $result = $(response).find('#surveytitlelogo')
                         if( $(response).find('#surveytitlelogo').length >= 1 ) {
                             /* Trigger redirect form on success */                            
                             $("#redirect_form").submit();
