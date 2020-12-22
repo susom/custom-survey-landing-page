@@ -20,7 +20,7 @@ This REDCap module creates a new landing page that can be used for manual survey
 - Code input in predefined fields
 - On-page validation (without redirect in case of error/ code mismatch)
 
-![Example Image](./example.png)
+![Example Image](./Example.png)
 
 ## Acknowledgements
 This module was built by Andy Martin and Jae Lee of Stanford University.
