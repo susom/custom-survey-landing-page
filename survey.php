@@ -20,7 +20,7 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
 ?>
 <div class="page-wrapper">
         <div class="wrapper wrapper-w580">
-            <div class="card card-shadow">
+            <div class="card card-shadow">            
                 <div class="card-body pt-3 pb-5">
                     <div id="main-wrap" class="form-wrap">
                         <div id="alert-error" class="alert alert-danger hidden" role="alert">
@@ -266,7 +266,7 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
     */
 
     body {
-        background: url(<?php echo $module->getImage64()?>) no-repeat center center fixed;
+        background: url(<?php echo $module->getAnyImage64("image")?>) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

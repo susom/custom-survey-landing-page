@@ -13,17 +13,17 @@ use REDCap;
 class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
 {
 
-    public function getImageUrl() {
-        $img_doc_id = $this->getProjectSetting('image');
-        $img_path = \Files::copyEdocToTemp($img_doc_id);
-        return $img_path;
-    }
+    public function getAnyImage64($key) {
+        $img_doc_id = $this->getProjectSetting($key);
+        $path = \Files::copyEdocToTemp($img_doc_id);
+        
+        if($path) {
+            $contents = file_get_contents($path);
+            $mime = mime_content_type($path);
+            return "data:" . $mime . ";base64," . base64_encode($contents);
+        }
 
-    public function getImage64() {
-        $path = $this->getImageUrl();
-        $contents = file_get_contents($path);
-        $mime = mime_content_type($path);
-        return "data:" . $mime . ";base64," . base64_encode($contents);
+        else return false;
     }
 
 
