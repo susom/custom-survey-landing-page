@@ -104,35 +104,35 @@ $query_string = substr($query_string,0,strpos($query_string, '&access'));
                             <input name="code" id="code_redirect" type="hidden">
                         </form>
                     </div>
-                    <div class="card-footer">              
-                        <div class="row text-center partners d-flex flex-wrap align-items-center">
-
-                            <?php if($img_partner_1): ?>
-                                <div class="col">
-                                    <img id="partner-1" src="<?= $img_partner_1?>">
-                                </div>
-                            <?php endif; ?>
-                            <?php if($img_partner_2): ?>
-                                <div class="col">
-                                    <img id="partner-2" src="<?= $img_partner_2?>">
-                                </div>
-                            <?php endif; ?>
-                            <?php if($img_partner_3): ?>
-                                <div class="col">
-                                    <img id="partner-3" src="<?= $img_partner_3?>">
-                                </div>
-                            <?php endif; ?>
-
-                        </div>
-                        <div class="row text-center">
-                            <div class="col pt-3">
-                                <?php if(!empty($footerText)): ?>
-                                    <small class="text-black-50"><?= $footerText ?></small>
-                                <?php endif; ?>
-                            </div>
-                        </div>                          
-                    </div>
                 </div>
+                <div class="card-footer">              
+                    <div class="row text-center partners d-flex flex-wrap align-items-center">
+
+                        <?php if($img_partner_1): ?>
+                            <div class="col">
+                                <img id="partner-1" src="<?= $img_partner_1?>">
+                            </div>
+                        <?php endif; ?>
+                        <?php if($img_partner_2): ?>
+                            <div class="col">
+                                <img id="partner-2" src="<?= $img_partner_2?>">
+                            </div>
+                        <?php endif; ?>
+                        <?php if($img_partner_3): ?>
+                            <div class="col">
+                                <img id="partner-3" src="<?= $img_partner_3?>">
+                            </div>
+                        <?php endif; ?>
+
+                    </div>
+                    <div class="row text-center">
+                        <div class="col pt-3">
+                            <?php if(!empty($footerText)): ?>
+                                <small class="text-black-50"><?= $footerText ?></small>
+                            <?php endif; ?>
+                        </div>
+                    </div>                          
+                </div>                
             </div>
         </div>
     </div>
