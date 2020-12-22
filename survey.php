@@ -18,11 +18,13 @@ $img_partner_2 = $module->getAnyImage64("partner-2");
 $img_partner_3 = $module->getAnyImage64("partner-3");
 $footerText = $module->getProjectSetting('footer-text');
 
-$access_code_length = $module->getAccessCodeLength($_GET["access"]);
+$access_type = $_GET["access"];
+$access_code_length = $module->getAccessCodeLength($access_type);
 $query_string =  $_SERVER['QUERY_STRING'];
 //  Remove last access parameter to omit bloated url
-$query_string = substr($query_string,0,strpos($query_string, '&access'));
-
+if ( strpos($query_string, '&access') !== false) {
+    $query_string = substr( $query_string,0,strpos($query_string, '&access') );
+}
 // Show the results
 
 ?>
