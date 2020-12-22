@@ -18,8 +18,10 @@ $img_partner_2 = $module->getAnyImage64("partner-2");
 $img_partner_3 = $module->getAnyImage64("partner-3");
 $footerText = $module->getProjectSetting('footer-text');
 
-$access_code_length = \Survey::ACCESS_CODE_LENGTH;
-
+$access_code_length = $module->getAccessCodeLength($_GET["access"]);
+$query_string =  $_SERVER['QUERY_STRING'];
+//  Remove last access parameter to omit bloated url
+$query_string = substr($query_string,0,strpos($query_string, '&access'));
 
 // Show the results
 
@@ -35,6 +37,27 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
                     <?php endif; ?>
                 </div>
                 <div class="card-body pt-3 pb-5">
+                    <div id="selection-wrap" class="hidden">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4><?=$module->tt("code_selection")?></h4>
+                            </div>
+                            <div class="col-6 text-right">
+                                <i id="btn-close-select-code" style="color:grey; cursor:pointer;" class="mt-1 fa fa-2x fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <div class="list-group mt-3">
+                            <a href="?<?php echo $query_string ?>&access=default" class="list-group-item list-group-item-action <?php if($access_type != 'short' && $access_type != 'numeral') echo 'disabled' ?>">
+                                <?= $module->tt("code_choice_default")?>
+                            </a>
+                            <a href="?<?php echo $query_string ?>&access=short" class="list-group-item list-group-item-action <?php if($access_type == 'short') echo 'disabled' ?> ">
+                                <?= $module->tt("code_choice_short")?>
+                            </a>
+                            <a href="?<?php echo $query_string ?>&access=numeral" class="list-group-item list-group-item-action <?php if($access_type == 'numeral') echo 'disabled' ?>">
+                                <?=$module->tt("code_choice_numeral")?>
+                            </a>
+                        </div>
+                    </div>
                     <div id="main-wrap" class="form-wrap">
                         <div id="alert-error" class="alert alert-danger hidden" role="alert">
                             <i class="fa fa-error-circle"></i>
@@ -70,6 +93,11 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
                                     <span class="loading hidden"><?=$module->tt("checking")?></span>
                                 </button>                        
                             </div>
+                            <?php if( !$module->getProjectSetting("hide-code-alternative")): ?>
+                            <div class="text-center small mt-2">
+                                <span id="btn-open-select-code" style="text-decoration: underline; cursor: pointer;"><?=$module->tt("code_alternative") ?></span>
+                            </div>
+                            <?php endif; ?>
                         </form>
                         <!-- hidden form to send the actual request for redirect -->
                         <form id="redirect_form" method="POST" action="<?php echo APP_PATH_SURVEY_FULL ?>">
@@ -242,6 +270,14 @@ $access_code_length = \Survey::ACCESS_CODE_LENGTH;
                 $("#alert-info").fadeIn();
             }
         }
+
+        function toggleCodeSelection(e){
+            $("#main-wrap").toggle();
+            $("#selection-wrap").toggle();  
+        }
+
+        body.on('click', '#btn-open-select-code', toggleCodeSelection);
+        body.on('click', '#btn-close-select-code', toggleCodeSelection);
 
         //  Event Listeners
 

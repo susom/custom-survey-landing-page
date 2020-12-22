@@ -128,7 +128,12 @@
       "name": "<b>Reset Short Url</b><br>If you chance the 'use-api-url' option above, you may need to update your short-url which is normally cached once created and will not normally be updated when you toggle the Use API Url option above.",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "hide-code-alternative",
+      "name": "<b>Hide Code Alternatives</b><br>Check this box if you do not want to display a link to select code alternatives",
+      "required": false,
+      "type": "checkbox"
     }
-
   ]
 }

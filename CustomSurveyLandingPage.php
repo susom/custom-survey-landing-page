@@ -26,6 +26,25 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
         else return false;
     }
 
+    /**
+     * Return Access Code length based on access type
+     * 
+     * 
+    **/
+    public function getAccessCodeLength($access) {
+
+        if( $access == 'short' ) {
+            return \Survey::SHORT_CODE_LENGTH;
+        }
+        if( $access == 'numeral' ) {
+            return \Survey::ACCESS_CODE_NUMERAL_LENGTH;
+        }
+        else {
+            return \Survey::ACCESS_CODE_LENGTH;
+        }
+        
+    }
+
 
     /**
      * Add some context to the config page to help the user-interface
