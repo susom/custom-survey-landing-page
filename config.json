@@ -21,6 +21,11 @@
       "name": "Jae Lee",
       "email": "jael@stanford.edu",
       "institution": "Stanford University"
+    },
+    {
+      "name": "Ekin Tertemiz",
+      "email": "ekin.tertemiz@swisstph.ch",
+      "institution": "Swiss Tropical and Public Health Institute"
     }
   ],
 
@@ -82,6 +87,36 @@
       "type": "file"
     },
     {
+      "key": "logo",
+      "name": "<b>Logo Image</b><br>Shows survey logo in card header",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "partner-1",
+      "name": "<b>Partner Logo (1)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "partner-2",
+      "name": "<b>Partner Logo (2)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "partner-3",
+      "name": "<b>Partner Logo (3)</b>",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "key": "footer-text",
+      "name": "<b>Footer text</b>",
+      "required": false,
+      "type": "text"
+    },
+    {
       "key": "align-top",
       "name": "<b>Align Background Image to Top (optional)</b><br>Keep the image aligned vertically to the top when zoomed or on small screens",
       "required": false,
@@ -98,7 +133,12 @@
       "name": "<b>Reset Short Url</b><br>If you chance the 'use-api-url' option above, you may need to update your short-url which is normally cached once created and will not normally be updated when you toggle the Use API Url option above.",
       "required": false,
       "type": "checkbox"
+    },
+    {
+      "key": "hide-code-alternative",
+      "name": "<b>Hide Code Alternatives</b><br>Check this box if you do not want to display a link to select code alternatives",
+      "required": false,
+      "type": "checkbox"
     }
-
   ]
 }
