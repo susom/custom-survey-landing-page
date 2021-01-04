@@ -196,6 +196,7 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                             // Get insert point:
                             var ta = $('#shorturl_div');
 
+                            // HTML Elements
                             var separator = '<fieldset style="margin:25px 0 0;padding:10px 10px 6px;border:0;border-top:1px solid #ccc;"><legend style="padding:0 3px;margin-left:10px;color:#666;font-size:15px;">OR</legend></fieldset>';
 
                             function getUrlDiv(url, id, name) {
@@ -213,14 +214,17 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
                                 return $($d);
                             }
 
+                            //  Append elements
+
                             ta.before(separator);
                             ta.before(getUrlDiv(publicUrl,'custPubUrl', 'Custom Long URL '));
+
+                            // Append short URL only if has been generated
                             if(shortUrl != false) {
                                 ta.before(separator);
                                 ta.before(getUrlDiv(shortUrl, 'custShortUrl', 'Custom Short URL'));
                             }
-
-
+                            
                         });
                     })();
 
