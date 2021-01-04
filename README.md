@@ -5,7 +5,7 @@ This REDCap module creates a new landing page that can be used for manual survey
 - REDCap >= 8.0.3 (for versions < 8.0.3, [REDCap Modules](https://github.com/vanderbilt/redcap-external-modules) is required).
 
 ## Easy Installation
-- Obtain this module from the Consortium [REDCap Repo] (https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
+- Obtain this module from the Consortium [REDCap Repo](https://redcap.vanderbilt.edu/consortium/modules/index.php) from the control center.
 - Optionally make it discoverable by all users
 
 ## Features included
