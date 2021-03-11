@@ -463,6 +463,16 @@ if ( strpos($query_string, '&access') !== false) {
     }
 
     /*
+    * Browser Fixes
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS */
+        .card-header {
+            max-height: 200px;
+        }
+    }
+
+    /*
     *   Helpers
     *
     */
