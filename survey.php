@@ -244,7 +244,7 @@ if ( strpos($query_string, '&access') !== false) {
                 
                 code_array = pastedArray;
 
-                pastedArray.forEach((element, index) => {
+                pastedArray.forEach(function(element, index) {
                     var id = index + 1;                
                     $("#access-digit-"+id).val(element);                
                 });
@@ -305,7 +305,7 @@ if ( strpos($query_string, '&access') !== false) {
                 data: 'id=access_code_form_send&'+$(this).serialize(), 
                 success: function(response) {
                     console.log(response);
-                    setTimeout(() => {
+                    setTimeout(function() {
                         // Dirty solution since there is no API-Endpoint to check if code is valid
                         if( $(response).find('#surveytitlelogo').length >= 1 ) {
                             /* Trigger redirect form on success */                            
