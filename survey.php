@@ -73,6 +73,10 @@ if ( strpos($query_string, '&access') !== false) {
                             <i class="fa fa-check-circle"></i>
                             <?=$module->tt("alert_ready")?>
                         </div>
+                        <div id="alert-success" class="alert alert-success hidden" role="alert">
+                            <i class="fa fa-check-circle"></i>
+                            <?=$module->tt("alert_success")?>
+                        </div>                        
                         <form name="access-code-form">
                             <div class="row">
                                 <div class="col-md-10 offset-md-1">
@@ -91,6 +95,7 @@ if ( strpos($query_string, '&access') !== false) {
                             <div class="p-t-15 text-center">
                                 <button id="submit-btn" class="btn btn-lg btn-dark" type="submit" disabled>
                                     <span class="not-loading"><?=$module->tt("check_access")?></span>
+                                    <span class="connecting hidden"><?=$module->tt("connecting")?></span>
                                     <span class="loading spinner-border hidden" role="status" aria-hidden="true"></span>
                                     <span class="loading hidden"><?=$module->tt("checking")?></span>
                                 </button>                        
@@ -142,6 +147,9 @@ if ( strpos($query_string, '&access') !== false) {
 
     $(function() {
         'use strict';
+
+        // Detect if is IE
+        var isIE = !!document.documentMode;
 
         var inputs = $("#access-code-digit-group").find("input");
         var input_count = inputs.length - 1; // reduced by one hidden input field
@@ -236,15 +244,24 @@ if ( strpos($query_string, '&access') !== false) {
         }
 
         function onPaste(e) {
+
+            var pastedData;
+
             // access the clipboard using the api and generate array
-            var pastedData = e.originalEvent.clipboardData.getData('text');
-            var pastedArray = Array.from(pastedData);
+            if(isIE) {
+                pastedData = window.clipboardData.getData('text')
+            } else {
+                pastedData = e.originalEvent.clipboardData.getData('text');
+            }         
+           
+            //var pastedArray = Array.from(pastedData);
+            var pastedArray = pastedData.split("");
             
             if(pastedArray.length <= input_count) {                
                 
                 code_array = pastedArray;
 
-                pastedArray.forEach((element, index) => {
+                pastedArray.forEach(function(element, index) {
                     var id = index + 1;                
                     $("#access-digit-"+id).val(element);                
                 });
@@ -294,7 +311,9 @@ if ( strpos($query_string, '&access') !== false) {
             e.preventDefault();
 
             $("input.form-control").prop("disabled", true);
+            $("#submit-btn").prop( "disabled", true );
             $("#alert-ready").hide();
+            $("#alert-error").hide();
             $(".not-loading").hide();
             $(".loading").css("display", "inline-block");
 
@@ -304,11 +323,13 @@ if ( strpos($query_string, '&access') !== false) {
                 url: '<?php echo APP_PATH_SURVEY_FULL ?>',
                 data: 'id=access_code_form_send&'+$(this).serialize(), 
                 success: function(response) {
-                    console.log(response);
-                    setTimeout(() => {
+                    setTimeout(function() {
                         // Dirty solution since there is no API-Endpoint to check if code is valid
                         if( $(response).find('#surveytitlelogo').length >= 1 ) {
-                            /* Trigger redirect form on success */                            
+                            /* Trigger redirect form on success */
+                            $("#alert-success").fadeIn();
+                            $(".loading").hide();
+                            $(".connecting").show();
                             $("#redirect_form").submit();
                         } else if($(response).find("#survey_code_form").length >= 1) {
                             /* Reset form if code is not valid */
@@ -318,13 +339,15 @@ if ( strpos($query_string, '&access') !== false) {
                             code_array = [];
                             $("input.form-control").first().focus();
                             checkIfValid();
+                            $(".loading").hide();
+                            $(".not-loading").show();
                         } else {
                             //   Fallback if none works
                             $("#redirect_form").submit();
+                            $(".loading").hide();
+                            $(".not-loading").show();
                         }
-                        $(".loading").hide();
-                        $(".not-loading").show();
-                    }, 1500); // simulate default loading time for UX
+                    }, 1250); // simulate default loading time for UX
 
                     },
                 error: function(err) {
@@ -403,7 +426,7 @@ if ( strpos($query_string, '&access') !== false) {
         color: #222222;
     }
 
-    .card-body #alert-ready {
+    .card-body #alert-ready, .card-body #alert-success {
         color: #155724 !important; /* gets overwritten in style.css  */
         background-color: #d4edda !important; /* gets overwritten in style.css  */
         border-color: #c3e6cb !important; /* gets overwritten in style.css  */
@@ -463,12 +486,22 @@ if ( strpos($query_string, '&access') !== false) {
     }
 
     /*
+    * Browser Fixes
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS */
+        .card-header {
+            max-height: 200px;
+        }
+    }
+
+    /*
     *   Helpers
     *
     */
 
     .hidden {
-        display:none;
+        display: none;
     }
 
 </style>
