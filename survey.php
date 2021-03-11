@@ -143,6 +143,9 @@ if ( strpos($query_string, '&access') !== false) {
     $(function() {
         'use strict';
 
+        // Detect if is IE
+        var isIE = !!document.documentMode;
+
         var inputs = $("#access-code-digit-group").find("input");
         var input_count = inputs.length - 1; // reduced by one hidden input field
         var body = $('body');
@@ -236,9 +239,18 @@ if ( strpos($query_string, '&access') !== false) {
         }
 
         function onPaste(e) {
+
+            var pastedData;
+
             // access the clipboard using the api and generate array
-            var pastedData = e.originalEvent.clipboardData.getData('text');
-            var pastedArray = Array.from(pastedData);
+            if(isIE) {
+                pastedData = window.clipboardData.getData('text')
+            } else {
+                pastedData = e.originalEvent.clipboardData.getData('text');
+            }         
+           
+            //var pastedArray = Array.from(pastedData);
+            var pastedArray = pastedData.split("");
             
             if(pastedArray.length <= input_count) {                
                 
