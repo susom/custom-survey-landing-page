@@ -104,12 +104,12 @@ class CustomSurveyLandingPage extends \ExternalModules\AbstractExternalModule
             // Try to make one
             $publicUrl = $this->getPublicUrl();
             // $publicUrl = str_replace("localhost","redcap.stanford.edu",$publicUrl);
-            $result = \Survey::getCustomShortUrl($publicUrl, false);
+            $result = getREDCapShortUrl($publicUrl);
 
-            if (self::startsWith($result, "Error:")) {
+            if (isset($result['errorMessage'])) {
                 $shortUrl = false;
             } else {
-                $shortUrl = $result;
+                $shortUrl = $result['url_short'];
                 $this->setProjectSetting('short-url', $shortUrl);
             }
         }
